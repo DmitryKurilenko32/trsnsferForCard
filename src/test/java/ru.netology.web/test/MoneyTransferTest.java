@@ -31,7 +31,7 @@ public class MoneyTransferTest {
     }
 
     @Test
-    void shouldTransferFromFirstToSecond() {
+    void testTransferFromFirstToSecond() {
         var amount = generateValidAmount(firstCardBalance);
         var expectedBalanceFirstCard = firstCardBalance - amount;
         var expectedBalanceSecondCard = secondCardBalance + amount;
@@ -42,6 +42,16 @@ public class MoneyTransferTest {
         assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
     }
+    @Test
+    void testTransferInValid(){
+        var amount = generateInvalidAmount(firstCardBalance);
+        var transferPage = dashboardPage.selectCardToTransfer(firstCardInfo);
+        transferPage.makeTransfer(String.valueOf(amount), secondCardInfo);
+        transferPage.findErrorMessage("Ошибка! ");
+
+    }
+
+
 
 
 }
